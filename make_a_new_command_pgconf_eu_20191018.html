@@ -1,0 +1,235 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta property="og:title" content="Make a New Command">
+        <meta property="og:description" content="a brief odyssey">
+        <meta name="author" content="David Fetter">
+
+		<title>Make a New Command</title>
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/solarized.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/monokai.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+        <!-- Don't SHOUT -->
+        <style>
+            .reveal h1,
+            .reveal h2,
+            .reveal h3,
+            .reveal h4,
+            .reveal h5 {
+                text-transform: none;
+            }
+        </style>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+                    <h3 style="font-family: Helvetica;">Make a New Command:</h3>
+                    <span class="fragment"><h5>a brief odyssey</h5></span>
+                    <aside class="notes">Thanks to OneLogin for sponsoring development!</aside>
+                    </p>
+                </section>
+                <section>
+                    <h1>New commands of yore</h1>
+                    <h5>REINDEX CONCURRENTLY</h5>
+
+                </section>
+                <section>
+                    <p align="left" class="fragment">Álvaro Herrera: I'm trying to implement a way to concurrently compact the indexes.</p>
+                    <span class="fragment">I hope to have it for</span><span class="fragment"> 7.4.</span>
+                    <p align="left" class="fragment">Date: 	2002-09-28 15:02:30</p>
+                    <aside class="notes">Thanks to OneLogin for sponsoring development!</aside>
+                </section>
+                <section>
+                    <pre>
+Date: Fri, 29 Mar 2019 07:26:53 +0000
+From: Peter Eisentraut &lt;peter@eisentraut.org>
+To: pgsql-committers@lists.postgresql.org
+Subject: pgsql: REINDEX CONCURRENTLY
+
+REINDEX CONCURRENTLY
+
+This adds the CONCURRENTLY option to the REINDEX command.  A REINDEX
+CONCURRENTLY on a specific index creates a new index (like CREATE
+INDEX CONCURRENTLY), then renames the old index away and the new index
+in place and adjusts the dependencies, and then drops the old
+index (like DROP INDEX CONCURRENTLY).  The REINDEX command also has
+the capability to run its other variants (TABLE, DATABASE) with the
+CONCURRENTLY option (but not SYSTEM).
+
+The reindexdb command gets the --concurrently option.
+
+Author: Michael Paquier, Andreas Karlsson, Peter Eisentraut
+Reviewed-by: Andres Freund, Fujii Masao, Jim Nasby, Sergei Kornilov
+Discussion: https://www.postgresql.org/message-id/flat/60052986-956b-4478-45ed-8bd119e9b9cf%402ndquadrant.com#74948a1044c56c5e817a5050f554ddee
+                    </pre>
+                </section>
+                <section>
+                    <h1>What?</h1>
+                    <span class="fragment"><h5>DESCRIBE</h5></span>
+                </section>
+                <section>
+                    <h1>Why?</h1>
+                    <p align="left">
+                       <span class="fragment">psql shouldn't get all the fun</span><br/>
+                       <span class="fragment">Everybody else has one</span><br/>
+                       <span class="fragment">(belatedly) It's in The Standard®</span>
+                   </p>
+                </section>
+                <section>
+                    <h1>How?</h1>
+                    <p>
+                        <span class="fragment">Hack some code</span></br>
+                        <span class="fragment">Compile same</span></br>
+                        <span class="fragment">Show others</span></br>
+                        <span class="fragment">Get feedback</span></br>
+                        <span class="fragment">Digest feedback</span></br>
+                        <span class="fragment">Lather, rinse, repeat</span>
+                    </p>
+                </section>
+                <section>
+                    <section data-markdown>
+                        <textarea data-template>
+                            ```
+                            $EDITOR src/backend/parser/gram.y
+                            ```
+                        </textarea>
+                    </section>
+                </section>
+                <section>
+                    "src/backend/parser/gram.y" 16382L, 444654C
+                </section>
+                <section>
+                    <p class="fragment" data-fragment-index="1">Whiskey</p>
+                    <p class="fragment" data-fragment-index="2">Tango</p>
+                    <p class="fragment" data-fragment-index="3">Foxtrot?!?</p>
+                </section>
+                <section>
+                    Breathe...
+                </section>
+                <section>
+                    <h3>Let's get started!</h3>
+                </section>
+                <section>
+                    What will DESCRIBE look like?
+                    <p class="fragment" data-fragment-index="1">SHOW</p>
+                    <p class="fragment" data-fragment-index="2">COMMENT ON</p>
+                </section>
+                <section>
+                    Stare-ety-stare stare
+                </section>
+                <section>
+                    Let's make a new node type!
+                    <aside class="notes">Let's pop open the source and see!</aside>
+                </section>
+                <section>
+                    Tab completion?
+                </section>
+                <section>
+                    describe.c and fiends
+                </section>
+                <section>
+                    How about some dumping infrastructure?
+                </section>
+                <section>
+                    Housekeeping!
+                </section>
+                <section>
+                    <h5>Danger, Will Robinson!</h5>
+                    Live Demo!
+                </section>
+                <section>
+                    To Be Continued...
+                </section>
+                <section>
+                    Grazie Mille!
+                </section>
+			</div>
+		</div>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true }
+				]
+			});
+		</script>
+        <style type="text/css">
+            /* 1. Style header/footer <div> so that they are positioned as desired */
+            #footer-left {
+                font-size: 12pt;
+                position: absolute;
+                bottom: 5%;
+                left: 5%;
+            }
+            #footer-right {
+                font-size: 12pt;
+                position: absolute;
+                bottom: 5%;
+                right: 15%;
+            }
+            ul {
+                list-style-type: none;
+            }
+        </style>
+        <!-- 2. Create hidden header/footer <div> -->
+        <div id="hidden" style="display:none;">
+            <div id="header">
+                <div id="header-left"></div>
+                <div id="header-right"></div>
+                <div id="footer-left">
+                    David Fetter<br/>
+                    Make a New Command<br/>
+                    October 18, 2019<br/>
+                    <a href="mailto:david.fetter@onelogin.com">david.fetter@onelogin.com</a><br/>
+                    <a href="https://pgconf.eu/f">Feedback</a>
+                </div>
+                <div id="footer-right">
+                    <a href="https://www.onelogin.com"
+                       alt="https://www.onelogin.com"><img
+                           src="https://www.onelogin.com/assets/img/press/presskit/downloads/Onelogin_Logotype/Screen/png/Onelogin_Logotype_black_RGB.png"
+                           alt="OneLogin Logo" height="50px"></a>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script type="text/javascript">
+            // On Reveal.js ready event, copy header/footer <div> into each `.slide.background` <div>
+            var header = $('#header').html();
+            if ( window.location.search.match( /print-pdf/gi ) ) {
+                Reveal.addEventListener( 'ready', function( event ) {
+                    $('.slide-background').append(header);
+                });
+            }
+            else {
+                $('div.reveal').append(header);
+            }
+        </script>
+
+	</body>
+</html>
+
